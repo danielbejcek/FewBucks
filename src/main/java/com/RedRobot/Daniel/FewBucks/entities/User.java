@@ -1,9 +1,7 @@
-package com.RedRobot.Daniel.FewBucks.model;
+package com.RedRobot.Daniel.FewBucks.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
-import java.util.List;
 
 
 @Entity

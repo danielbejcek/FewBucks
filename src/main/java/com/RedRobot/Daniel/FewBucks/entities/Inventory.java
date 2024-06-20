@@ -1,9 +1,9 @@
-package com.RedRobot.Daniel.FewBucks.model;
+package com.RedRobot.Daniel.FewBucks.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
-//@Data
+
+
 @Entity
 @Table(name = "Inventory")
 public class Inventory {
@@ -18,9 +18,29 @@ public class Inventory {
     @Column(name = "itemAmount")
     private int itemAmount;
 
-    public Inventory(long id, String itemName, int itemAmount) {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public int getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(int itemAmount) {
         this.itemAmount = itemAmount;
     }
+
+
 }
