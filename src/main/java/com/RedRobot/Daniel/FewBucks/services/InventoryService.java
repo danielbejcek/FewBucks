@@ -9,13 +9,18 @@ import java.util.List;
 
 @Service
 public class InventoryService {
-    @Autowired InventoryRepo inventoryRepo;
 
-    public InventoryService(){
+    @Autowired
+    private InventoryRepo inventoryRepo;
 
-    }
+
     public List<Inventory> getInventory(){
         return inventoryRepo.findAll();
     }
+
+    public Inventory addItem(Inventory item){
+       return inventoryRepo.save(item);
+    }
+
 
 }
