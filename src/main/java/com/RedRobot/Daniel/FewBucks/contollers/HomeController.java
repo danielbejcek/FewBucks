@@ -30,6 +30,13 @@ public class HomeController {
     public Inventory addItem(@RequestBody Inventory item){
         return inventoryService.addItem(item);
     }
+
+    /*
+    Optional: A container that can hold a value or be empty.
+    map: Applies a function to the contained value if it exists, transforming it.
+    orElseGet: Provides an alternative value if the Optional is empty.
+    ResponseEntity: A Spring class that represents an HTTP response, with a status code and body.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Object> getItemId(@PathVariable Long id){
         Optional<Inventory> inventoryItem = inventoryService.getItemById(id);
