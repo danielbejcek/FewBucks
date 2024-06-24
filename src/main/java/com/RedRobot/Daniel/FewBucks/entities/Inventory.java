@@ -16,8 +16,14 @@ public class Inventory {
     @Column(name = "itemName")
     private String itemName;
 
+    @Column(name = "itemPrice")
+    private double itemPrice;
+
     @Column(name = "itemAmount")
     private int itemAmount;
+
+    @Column(name = "itemInStock")
+    private boolean itemInStock;
 
     public Long getId() {
         return id;
@@ -35,6 +41,13 @@ public class Inventory {
         this.itemName = itemName;
     }
 
+    public double getItemPrice(){
+        return itemPrice;
+    }
+    public void setItemPrice(double itemPrice){
+        this.itemPrice = itemPrice;
+    }
+
     public int getItemAmount() {
         return itemAmount;
     }
@@ -43,5 +56,10 @@ public class Inventory {
         this.itemAmount = itemAmount;
     }
 
-
+    public boolean getItemInStock(){
+        return itemInStock;
+    }
+    public void setItemInStock(boolean itemInStock){
+        this.itemInStock = itemInStock;
+    }
 }
