@@ -17,7 +17,7 @@ public class HomeController {
     InventoryService inventoryService;
 
     @GetMapping("")
-    public String helloWorld(){
+    public String homePage(){
         return "Welcome to FewBucks!";
     }
 
@@ -33,16 +33,17 @@ public class HomeController {
 
     /*
     Optional: A container that can hold a value or be empty.
-    map: Applies a function to the contained value if it exists, transforming it.
-    orElseGet: Provides an alternative value if the Optional is empty.
     ResponseEntity: A Spring class that represents an HTTP response, with a status code and body.
      */
     @GetMapping("/{id}")
     public ResponseEntity<Object> getItemId(@PathVariable Long id){
         Optional<Inventory> inventoryItem = inventoryService.getItemById(id);
-        return inventoryItem.<ResponseEntity<Object>>map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Item not found"));
+
+        if(inventoryItem.isPresent()){
+            return ResponseEntity.ok(inventoryItem.get());
+        } else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
+        }
 
     }
 
