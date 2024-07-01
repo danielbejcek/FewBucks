@@ -1,0 +1,26 @@
+.home-container {
+    height: 100vh; /* Full viewport height */
+    background-image: url('../../../public/Images/HomePage/homeBackground_1.png');
+    background-size: cover;
+    background-position: top;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white; /* To ensure text is readable */
+}
+
+.home-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
