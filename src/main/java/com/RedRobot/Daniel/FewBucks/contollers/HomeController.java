@@ -21,7 +21,7 @@ public class HomeController {
         return "Welcome to FewBucks!";
     }
 
-    @GetMapping("listProducts")
+    @GetMapping("api/public/listProducts")
     public List<Inventory> getInventory(){
         return inventoryService.getInventory();
 
@@ -35,7 +35,7 @@ public class HomeController {
     Optional: A container that can hold a value or be empty.
     ResponseEntity: A Spring class that represents an HTTP response, with a status code and body.
      */
-    @GetMapping("/{id}")
+    @GetMapping("api/public/listProducts/{id}")
     public ResponseEntity<Object> getItemId(@PathVariable Long id){
         Optional<Inventory> inventoryItem = inventoryService.getItemById(id);
 
