@@ -1,18 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+};
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
+    const query = useQuery();
+    const searchQuery = query.get('search') || '';
 
     useEffect(() => {
-        axios.get('api/public/listProducts')
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the products!', error);
-            });
-    }, []);
+        const fetchProducts = () => {
+            let url = '/api/public/listProducts';
+            if (searchQuery) {
+                url += `?search=${searchQuery}`;
+            }
+
+            axios.get(url)
+                .then(response => {
+                    setProducts(response.data);
+                })
+                .catch(error => {
+                    console.error('There was an error fetching the products.', error);
+                });
+        };
+
+        fetchProducts();
+    }, [searchQuery]);
 
     return (
         <div>

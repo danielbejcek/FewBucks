@@ -21,11 +21,11 @@ public class HomeController {
         return "Welcome to FewBucks!";
     }
 
-    @GetMapping("api/public/listProducts")
-    public List<Inventory> getInventory(){
-        return inventoryService.getInventory();
-
-    }
+//    @GetMapping("api/public/listProducts")
+//    public List<Inventory> getInventory(){
+//        return inventoryService.getInventory();
+//
+//    }
     @PostMapping("addItem")
     public Inventory addItem(@RequestBody Inventory item){
         return inventoryService.addItem(item);
@@ -45,11 +45,19 @@ public class HomeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
         }
     }
-    @GetMapping("api/public/listProducts/")
-    public List<Inventory> searchInventory(@RequestParam String search){
-        return inventoryService.searchInventory(search);
+//    @GetMapping("api/public/listProducts/")
+//    public List<Inventory> searchInventory(@RequestParam String search){
+//        return inventoryService.searchInventory(search);
+//    }
+
+    @GetMapping("api/public/listProducts")
+    public List<Inventory> searchInventory(@RequestParam(required = false) String search) {
+        if (search != null && !search.isEmpty()) {
+            return inventoryService.searchInventory(search);
+        } else {
+            return inventoryService.getInventory();
+        }
     }
-
-
-
 }
+
+
