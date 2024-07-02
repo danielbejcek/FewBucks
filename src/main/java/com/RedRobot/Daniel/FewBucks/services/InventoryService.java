@@ -29,4 +29,10 @@ public class InventoryService {
     public Optional<Inventory> getItemById(Long id){
         return inventoryRepo.findById(id);
     }
+
+    public List<Inventory> searchInventory(String query){
+        return inventoryRepo.findByItemNameContaining(query);
+    }
+
+
 }

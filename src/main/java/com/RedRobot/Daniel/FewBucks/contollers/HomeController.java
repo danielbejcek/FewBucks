@@ -36,15 +36,18 @@ public class HomeController {
     ResponseEntity: A Spring class that represents an HTTP response, with a status code and body.
      */
     @GetMapping("api/public/listProducts/{id}")
-    public ResponseEntity<Object> getItemId(@PathVariable Long id){
+    public ResponseEntity<Object> getItemId(@PathVariable Long id) {
         Optional<Inventory> inventoryItem = inventoryService.getItemById(id);
 
-        if(inventoryItem.isPresent()){
+        if (inventoryItem.isPresent()) {
             return ResponseEntity.ok(inventoryItem.get());
-        } else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
         }
-
+    }
+    @GetMapping("api/public/listProducts/")
+    public List<Inventory> searchInventory(@RequestParam String search){
+        return inventoryService.searchInventory(search);
     }
 
 
