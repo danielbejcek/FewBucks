@@ -12,5 +12,5 @@ public interface InventoryRepo extends JpaRepository<Inventory,Long> {
     /* Containing: Partial match, similar to SQL's LIKE with wildcards.
     Allows to search for items without explicitly stating the full name of the item.
     IgnoreCase removes the need to be lower or upper case specific.*/
-    List<Inventory> findByItemNameContainingIgnoreCase(String query);
+    List<Inventory> findByItemNameContainingIgnoreCase(String search);
 }

@@ -30,8 +30,8 @@ public class InventoryService {
         return inventoryRepo.findById(id);
     }
 
-    public List<Inventory> searchInventory(String query){
-        return inventoryRepo.findByItemNameContainingIgnoreCase(query);
+    public List<Inventory> searchInventory(String search){
+        return inventoryRepo.findByItemNameContainingIgnoreCase(search);
     }
 
 

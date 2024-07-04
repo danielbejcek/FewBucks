@@ -26,7 +26,7 @@ public class HomeController {
 //        return inventoryService.getInventory();
 //
 //    }
-    @PostMapping("addItem")
+    @PostMapping("/addItem")
     public Inventory addItem(@RequestBody Inventory item){
         return inventoryService.addItem(item);
     }
@@ -50,6 +50,11 @@ public class HomeController {
 //        return inventoryService.searchInventory(search);
 //    }
 
+    /*
+    Method that allows to search for an item within the inventory with parameter passed in a query like so:
+    "api/public/listProducts?search=*item*".
+    Whenever the query parameter remains unfilled, whole inventory is returned.
+    */
     @GetMapping("api/public/listProducts")
     public List<Inventory> searchInventory(@RequestParam(required = false) String search) {
         if (search != null && !search.isEmpty()) {
