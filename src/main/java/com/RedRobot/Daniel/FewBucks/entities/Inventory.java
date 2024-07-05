@@ -13,10 +13,10 @@ public class Inventory {
     @Column(name = "itemID")
     private Long id;
 
-    @Column(name = "itemName", unique = true)
+    @Column(name = "itemName", nullable = false, unique = true)
     private String itemName;
 
-    @Column(name = "itemPrice")
+    @Column(name = "itemPrice", nullable = false)
     private double itemPrice;
 
     @Column(name = "itemAmount")

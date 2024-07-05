@@ -1,7 +1,9 @@
 package com.RedRobot.Daniel.FewBucks.contollers;
 
 import com.RedRobot.Daniel.FewBucks.entities.Inventory;
+import com.RedRobot.Daniel.FewBucks.entities.Users;
 import com.RedRobot.Daniel.FewBucks.services.InventoryService;
+import com.RedRobot.Daniel.FewBucks.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +18,19 @@ public class HomeController {
     @Autowired
     InventoryService inventoryService;
 
+    @Autowired
+    UsersService usersService;
+
+    @GetMapping("/users")
+    public List<Users> getUsers(){
+        return usersService.getUsers();
+    }
+
     @GetMapping("")
     public String homePage(){
         return "Welcome to FewBucks!";
     }
 
-//    @GetMapping("api/public/listProducts")
-//    public List<Inventory> getInventory(){
-//        return inventoryService.getInventory();
-//
-//    }
     @PostMapping("/addItem")
     public Inventory addItem(@RequestBody Inventory item){
         return inventoryService.addItem(item);
@@ -45,10 +50,6 @@ public class HomeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
         }
     }
-//    @GetMapping("api/public/listProducts/")
-//    public List<Inventory> searchInventory(@RequestParam String search){
-//        return inventoryService.searchInventory(search);
-//    }
 
     /*
     Method that allows to search for an item within the inventory with parameter passed in a query like so:
