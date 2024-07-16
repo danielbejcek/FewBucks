@@ -2,8 +2,6 @@ package com.RedRobot.Daniel.FewBucks.entities;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
 @Table(name = "Users")
 public class Users {
@@ -18,7 +16,7 @@ public class Users {
     @Column(name = "password", nullable = false, length = 1000)
     private String password;
 
-    @Column(name = "email", nullable = false, length = 320)
+    @Column(name = "email", nullable = false, unique = true, length = 320)
     private String email;
 
     @Column(name = "first_name", nullable = false)
