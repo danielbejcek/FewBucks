@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/public")
 public class InventoryController {
+
     @Autowired
     InventoryService inventoryService;
 

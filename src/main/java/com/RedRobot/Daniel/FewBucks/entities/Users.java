@@ -29,12 +29,6 @@ public class Users {
     @Column(name = "role", nullable = false)
     private String role;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "users_roles",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Roles> roles;
 
     public String getLastName(){
         return lastName;
@@ -86,12 +80,6 @@ public class Users {
         this.role = role;
     }
 
-    //    public Set<Roles> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<Roles> roles) {
-//        this.roles = roles;
-//    }
+
 }
 
