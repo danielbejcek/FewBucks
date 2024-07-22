@@ -32,7 +32,7 @@ public class UsersService {
     public List<Users> getUsers(){
         return usersRepo.findAll();
     }
-    public List<Users> findUser(String search){
+    public Optional<Users> findUser(String search){
         return usersRepo.findByUserNameContainingIgnoreCase(search);
     }
 

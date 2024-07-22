@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/auth")
@@ -19,7 +20,7 @@ public class UserController {
         return usersService.getUsers();
     }
     @GetMapping("/search")
-    public List<Users>searchUser(@RequestParam String search){
+    public Optional<Users> searchUser(@RequestParam String search){
         return usersService.findUser(search);
     }
 
