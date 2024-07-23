@@ -33,7 +33,6 @@ public class UsersService {
         return usersRepo.findAll();
     }
     public Optional<Users> findUser(String search){
-        return usersRepo.findByUserNameContainingIgnoreCase(search);
+        return usersRepo.findByUserName(search);
     }
-
 }

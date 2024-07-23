@@ -22,14 +22,13 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         /*Fetches the user from the database, this returns an 'Optional<Users>', which may or may not contain a user*/
-        Optional<Users> user = usersRepo.findByUserNameContainingIgnoreCase(username);
+        Optional<Users> user = usersRepo.findByUserName(username);
         if (user.isPresent()) {
             /*Extracts 'User' object from Optional<Users> user*/
             Users userObject = user.get();
             return User.builder()
                     .username(userObject.getUserName())
-                    .username(userObject.getPassword())
-                    .username(userObject.getEmail())
+                    .password(userObject.getPassword())
                     .roles(userObject.getRole())
                     .build();
 
