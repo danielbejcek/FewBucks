@@ -18,7 +18,8 @@ public class AuthController {
     @Autowired
     private UsersService usersService;
 
-
+    /*The registerUser method receives the request body and passes the Users object to the UsersService.
+    * The entire registration process is synchronous. The response is only sent back to the client after all processing is complete.*/
     @PostMapping("/register")
     public ResponseEntity<Object> registerUser(@RequestBody Users user) {
         try {
@@ -29,6 +30,7 @@ public class AuthController {
         }
     }
 
+    /*Method to be moved into an appropriate ADMIN package*/
     @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         if (usersRepo.existsById(id)) {
@@ -39,5 +41,4 @@ public class AuthController {
         }
 
     }
-    //    Implement methods that register new user as well as assigning the role to the new user. Eventually adding the option to log in as a user.
 }

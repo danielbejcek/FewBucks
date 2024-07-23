@@ -18,7 +18,7 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     private UsersRepo usersRepo;
 
-    /*The purpose of this method is to load user-specific data during the authentication process.*/
+    /*The purpose of this method is to load user-specific data from the database during the authentication process.*/
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         /*Fetches the user from the database, this returns an 'Optional<Users>', which may or may not contain a user*/

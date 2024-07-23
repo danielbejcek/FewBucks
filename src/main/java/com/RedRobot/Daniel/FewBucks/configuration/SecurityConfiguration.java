@@ -57,6 +57,7 @@ public class SecurityConfiguration {
         return provider;
     }
 
+    /*BCrypt is designed to incorporate a salt internally, and it generates a new salt each time new password is hashed.*/
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

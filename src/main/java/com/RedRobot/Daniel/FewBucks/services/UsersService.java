@@ -18,7 +18,8 @@ public class UsersService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /* Setting the role as a default to a USER, unless specified differently in the JSON body.*/
+    /* Setting the role as a default to a USER, unless specified differently in the JSON body.
+    * User details are saved to the database via UsersRepo.*/
     public Users registerUser(Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRole() == null || user.getRole().isEmpty()){

@@ -15,10 +15,13 @@ public class UserController {
     @Autowired
     UsersService usersService;
 
+    /*Method to be moved into an appropriate ADMIN package*/
     @GetMapping("/users")
     public List<Users> getUsers(){
         return usersService.getUsers();
     }
+
+    /*Method to be moved into an appropriate ADMIN package*/
     @GetMapping("/search")
     public Optional<Users> searchUser(@RequestParam String search){
         return usersService.findUser(search);
