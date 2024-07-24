@@ -43,10 +43,6 @@ public class InventoryController {
         }
     }
 
-    /*Url is not able to accept post request. This needs to be done using an external application like Postman*/
-    @PostMapping("/addItem")
-    public Inventory addItem(@RequestBody Inventory item){
-        return inventoryService.addItem(item);
-    }
+
 }
 

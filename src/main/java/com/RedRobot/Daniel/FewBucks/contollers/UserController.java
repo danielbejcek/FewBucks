@@ -12,21 +12,6 @@ import java.util.Optional;
 @RequestMapping("api/auth")
 public class UserController {
 
-    @Autowired
-    UsersService usersService;
-
-    /*Method to be moved into an appropriate ADMIN package*/
-    @GetMapping("/users")
-    public List<Users> getUsers(){
-        return usersService.getUsers();
-    }
-
-    /*Method to be moved into an appropriate ADMIN package*/
-    @GetMapping("/search")
-    public Optional<Users> searchUser(@RequestParam String search){
-        return usersService.findUser(search);
-    }
-
 //    Implement methods for adding items to basket, listing the basket, removing items from a basket.
 
 }

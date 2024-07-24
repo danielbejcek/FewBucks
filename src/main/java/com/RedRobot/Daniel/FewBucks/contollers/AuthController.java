@@ -29,16 +29,4 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
-
-    /*Method to be moved into an appropriate ADMIN package*/
-    @DeleteMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        if (usersRepo.existsById(id)) {
-            usersRepo.deleteById(id);
-            return "User with ID " + id + " deleted successfully.";
-        } else {
-            return "User with ID " + id + " not found.";
-        }
-
-    }
 }

@@ -33,7 +33,7 @@ public class SecurityConfiguration {
             registry.requestMatchers("/","/register/**","/login/**").permitAll();
             registry.requestMatchers("/api/public/**").permitAll();
             registry.requestMatchers("/api/admin/**").hasRole("ADMIN");
-            registry.requestMatchers("/api/auth/**").hasRole("USER");
+            registry.requestMatchers("/api/auth/**").hasAnyRole("USER","ADMIN");
             registry.anyRequest().authenticated();
 
         })       /*Creates a Form-based authentication*/

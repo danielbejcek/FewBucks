@@ -7,6 +7,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @RestController
 public class HomeController {
 
@@ -21,11 +25,13 @@ public class HomeController {
             /*The principal object represents the authenticated user.*/
             Object principal = auth.getPrincipal();
             String username;
+            Collection role;
 
             if (principal instanceof UserDetails){
                 /*Casts principal to treat it as object of UserDetails and calls getUsername() to get the authenticated user's username.*/
                 username = ((UserDetails) principal).getUsername();
-                return "Welcome to FewBucks "+ username + "!";
+                role = ((UserDetails) principal).getAuthorities();
+                return "Welcome to FewBucks "+ role.toString().toLowerCase() +" " +username + "!";
             }
         }
         return "Welcome to FewBucks!";
