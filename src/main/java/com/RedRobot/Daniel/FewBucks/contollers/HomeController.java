@@ -25,7 +25,7 @@ public class HomeController {
             /*The principal object represents the authenticated user.*/
             Object principal = auth.getPrincipal();
             String username;
-            Collection role;
+            Collection<?> role;
 
             if (principal instanceof UserDetails){
                 /*Casts principal to treat it as object of UserDetails and calls getUsername() to get the authenticated user's username.*/

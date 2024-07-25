@@ -29,6 +29,11 @@ public class Users {
     @Column(name = "role", nullable = false)
     private String role;
 
+    /*mappedBy = "user" indicates that the ShoppingCart entity has a field named user which owns the relationship.*/
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ShoppingCart cart;
+
+
 
     public String getLastName(){
         return lastName;
@@ -78,6 +83,14 @@ public class Users {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public ShoppingCart getCart() {
+        return cart;
+    }
+
+    public void setCart(ShoppingCart cart) {
+        this.cart = cart;
     }
 
 
