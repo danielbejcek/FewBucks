@@ -8,7 +8,6 @@ import java.util.Set;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
     private Long id;
 
     @Column(name = "user_name", nullable = false, unique = true)
@@ -32,8 +31,6 @@ public class Users {
     /*mappedBy = "user" indicates that the ShoppingCart entity has a field named user which owns the relationship.*/
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private ShoppingCart cart;
-
-
 
     public String getLastName(){
         return lastName;
