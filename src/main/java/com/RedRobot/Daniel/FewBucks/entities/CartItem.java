@@ -20,6 +20,9 @@ public class CartItem {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
+    @Column(name = "item_price", nullable = false)
+    private int itemPrice;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +53,13 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(int itemPrice) {
+        this.itemPrice = itemPrice;
     }
 }

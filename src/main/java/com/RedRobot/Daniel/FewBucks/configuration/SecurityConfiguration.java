@@ -44,7 +44,7 @@ public class SecurityConfiguration {
     }
 
     /*Method responsible for authenticating a user within the Spring Security context.
-    retrieves user details from a data source and verifies the user's credentials.
+    Retrieves user details from a data source and verifies the user's credentials.
     When a user attempts to log in, DaoAuthenticationProvider calls UserDetailsService to load the user details
     and then uses PasswordEncoder to check the provided password against the stored one.*/
     @Bean
