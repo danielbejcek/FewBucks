@@ -10,7 +10,7 @@ public class CartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", nullable = false)
+    @JoinColumn(name = "shoppingcart_id", nullable = false)
     private ShoppingCart cart;
 
     @ManyToOne
@@ -21,7 +21,7 @@ public class CartItem {
     private int quantity;
 
     @Column(name = "item_price", nullable = false)
-    private int itemPrice;
+    private double itemPrice;
 
     public Long getId() {
         return id;
@@ -55,11 +55,11 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public int getItemPrice() {
+    public double getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(int itemPrice) {
+    public void setItemPrice(double itemPrice) {
         this.itemPrice = itemPrice;
     }
 }

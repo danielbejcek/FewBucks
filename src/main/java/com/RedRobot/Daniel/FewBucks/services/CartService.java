@@ -13,7 +13,9 @@ import com.RedRobot.Daniel.FewBucks.repositories.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,7 @@ public class CartService {
     public ShoppingCartDTO getCartByUser(String username){
         Users user = usersRepo.findByUserName(username).orElseThrow(() -> new IllegalArgumentException("User not found."));
         ShoppingCart shoppingCart = shoppingCartRepo.findByUser(user);
+        System.out.println(shoppingCart.getUser().getId());
         return convertToShoppingCartDTO(shoppingCart); /*Converts a ShoppingCart object into a ShoppingCartDTO*/
 
     }
@@ -52,11 +55,38 @@ public class CartService {
         CartItem cartItem = new CartItem();
         cartItem.setItem(item);
         cartItem.setQuantity(quantity);
-        cartItem.setCart(shoppingCart);
-        shoppingCart.getItems().add(cartItem); // Using .getItems() which returns a list of CartItem objects, only then we can use an .add(cartItem) method.
+        cartItem.setItemPrice(item.getItemPrice());
 
+        cartItem.setCart(shoppingCart);
+
+        if (shoppingCart.getItems() == null) {
+            shoppingCart.setItems(new ArrayList<>());
+        }
+
+        shoppingCart.getItems().add(cartItem); // Using .getItems() which returns a list of CartItem objects, only then we can use an .add(cartItem) method.
         shoppingCartRepo.save(shoppingCart);
+
         return convertToShoppingCartDTO(shoppingCart);
+    }
+
+    public ShoppingCartDTO removeItemFromCart(String username, long cartItemId){
+        Users user = usersRepo.findByUserName(username).orElseThrow(()-> new IllegalArgumentException("Username not found"));
+        ShoppingCart shoppingCart = shoppingCartRepo.findByUser(user); // Find the shopping cart associated with the user
+        if (shoppingCart == null){
+            throw new IllegalArgumentException("Cart not found");
+        }
+        Optional<CartItem> cartItem = shoppingCart
+                .getItems()
+                .stream()
+                .filter(item -> item.getId().equals(cartItemId)) // Filters the stream to include only items with an ID matching cartItemId
+                .findFirst();
+        if (cartItem.isEmpty()){ // Check to ensure that the Optional contains a value
+            throw new IllegalArgumentException("Cart item not found");
+        }
+        shoppingCart.getItems().remove(cartItem.get()); //Using .get() to retrieve the actual value contained within the Optional
+        cartItemRepo.delete(cartItem.get()); // Delete the cart item from the repository (database)
+
+        return convertToShoppingCartDTO(shoppingCart); // Converts the shoppingCart to a DTO and returns the updated version of ShoppingCartDTO to the client
     }
 
     /*Method that converts ShoppingCart object into a ShoppingCartDTO*/
@@ -75,7 +105,7 @@ public class CartService {
                 .stream() // Convert the list of CartItem entities to a stream
 
                 /* Apply the convertToCartItemDTO method to each CartItem entity.
-                Using ".map" to transform each element in the stream using lambda expression*/
+                Using ".map" to transform each element in the stream with the use of lambda expression*/
                 .map(this::convertToCartItemDTO)
 
                 .collect(Collectors.toList()); // Collect the results into a list
@@ -88,7 +118,7 @@ public class CartService {
     private CartItemDTO convertToCartItemDTO(CartItem cartItem){
         CartItemDTO cartItemDTO = new CartItemDTO();
         cartItemDTO.setId(cartItem.getId());
-        cartItemDTO.setItemid(cartItem.getItem().getId());
+        cartItemDTO.setItemId(cartItem.getItem().getId());
         cartItemDTO.setItemName(cartItem.getItem().getItemName());
         cartItemDTO.setQuantity(cartItem.getQuantity());
         cartItemDTO.setItemPrice(cartItem.getItemPrice());

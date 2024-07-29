@@ -19,12 +19,12 @@ public class CartItemDTO {
         this.id = id;
     }
 
-    public long getItemid() {
+    public long getItemId() {
         return itemId;
     }
 
-    public void setItemid(long itemid) {
-        this.itemId = itemid;
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
     }
 
     public String getItemName() {
