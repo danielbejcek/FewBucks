@@ -37,33 +37,49 @@ public class CartService {
     public ShoppingCartDTO getCartByUser(String username){
         Users user = usersRepo.findByUserName(username).orElseThrow(() -> new IllegalArgumentException("User not found."));
         ShoppingCart shoppingCart = shoppingCartRepo.findByUser(user);
-        System.out.println(shoppingCart.getUser().getId());
+
         return convertToShoppingCartDTO(shoppingCart); /*Converts a ShoppingCart object into a ShoppingCartDTO*/
 
     }
 
-    public ShoppingCartDTO addItemToCart(String username, Long itemId, int quantity){
+    public ShoppingCartDTO addItemToCart(String username, Long itemId, int quantity) {
         Users user = usersRepo.findByUserName(username).orElseThrow(() -> new IllegalArgumentException("User not found."));
         /*Creates a new ShoppingCart object if there isn't one created already. Then proceeds to assign said shoppingCart to the user*/
         ShoppingCart shoppingCart = shoppingCartRepo.findByUser(user);
-        if (shoppingCart == null){
+
+        if (shoppingCart == null) {
             shoppingCart = new ShoppingCart();
             shoppingCart.setUser(user);
         }
         /*Fetches the item from the inventoryRepo according to the provided ID in the method's parameter*/
-        Inventory item = inventoryRepo.findById(itemId).orElseThrow(()-> new IllegalArgumentException("Item not found."));
-        CartItem cartItem = new CartItem();
-        cartItem.setItem(item);
-        cartItem.setQuantity(quantity);
-        cartItem.setItemPrice(item.getItemPrice());
+        Inventory inventoryItem = inventoryRepo.findById(itemId).orElseThrow(() -> new IllegalArgumentException("Item not found."));
 
-        cartItem.setCart(shoppingCart);
+        /*Check if the item already exists in the shopping cart by filtering the cart items based on the item ID.*/
+        Optional<CartItem> duplicate = shoppingCart // This object represents an existing item in the shopping cart that matches the itemId
+                .getItems()
+                .stream()
+                .filter(item -> item.getItem().getId().equals(itemId)).findFirst();
+
+        /*If a duplicate item is found in the cart, update its quantity and total price.*/
+        if (duplicate.isPresent()) {
+            CartItem duplicateItem = duplicate.get(); // When a duplicate item is found, we retrieve it using duplicate.get()
+            duplicateItem.setQuantity(duplicateItem.getQuantity() + quantity);
+            duplicateItem.setItemPrice(duplicateItem.getItemPrice() + (inventoryItem.getItemPrice() * quantity));
+
+        } else {
+            CartItem cartItem = new CartItem(); // If no duplicate item is found, we create a new CartItem object
+            cartItem.setItem(inventoryItem);
+            cartItem.setQuantity(quantity);
+            cartItem.setItemPrice(inventoryItem.getItemPrice());
+            cartItem.setCart(shoppingCart);
+            shoppingCart.getItems().add(cartItem); // Using .getItems() which returns a list of CartItem objects, only then we can use an .add(cartItem) method
+        }
 
         if (shoppingCart.getItems() == null) {
             shoppingCart.setItems(new ArrayList<>());
+
         }
 
-        shoppingCart.getItems().add(cartItem); // Using .getItems() which returns a list of CartItem objects, only then we can use an .add(cartItem) method.
         shoppingCartRepo.save(shoppingCart);
 
         return convertToShoppingCartDTO(shoppingCart);

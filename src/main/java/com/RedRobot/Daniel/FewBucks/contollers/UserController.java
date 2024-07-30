@@ -1,6 +1,8 @@
 package com.RedRobot.Daniel.FewBucks.contollers;
 
 import com.RedRobot.Daniel.FewBucks.DTO.ShoppingCartDTO;
+import com.RedRobot.Daniel.FewBucks.entities.CartItem;
+import com.RedRobot.Daniel.FewBucks.entities.ShoppingCart;
 import com.RedRobot.Daniel.FewBucks.entities.Users;
 import com.RedRobot.Daniel.FewBucks.repositories.UsersRepo;
 import com.RedRobot.Daniel.FewBucks.services.CartService;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -29,8 +33,6 @@ public class UserController {
     @PostMapping("/addItemToBasket")
     public ResponseEntity<ShoppingCartDTO> addItemToBasket(@RequestParam Long itemId, @RequestParam int quantity, Authentication auth){
         String username = auth.getName();
-//        Users user = usersRepo.findByUserName(username).orElseThrow(()-> new IllegalArgumentException("User not found"));
-//        System.out.println(user.getId());
         return ResponseEntity.ok(cartService.addItemToCart(username,itemId,quantity));
     }
 
